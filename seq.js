@@ -1,4 +1,5 @@
 var timeStamps = {};
+var times = [];
 var i = 0;
 var interval = null;
 
@@ -10,16 +11,23 @@ sayHello = function() {
 	}
 }
 
-var interval = window.setInterval(sayHello, 30);
-console.log('Goodbye.');
+
+eval = function() {
+	str = ""
+	for (var key in timeStamps) {
+		timeStamps[key] = +new Date();
+		str += key + " " + timeStamps[key] + '\n'
+	}
+	i++;
+	document.getElementById("text").innerHTML = str;
+};
 
 window.onkeydown = function(e) {
-	// When key is pressed down, ad to list of currently
+	// When key is pressed down, add to list of currently
 	// pressed keys
 	if (!timeStamps[e.which]) {
 		var num = +new Date();
 		timeStamps[e.which] = num;
-		document.getElementById("text").innerHTML = num;
 	}
 };
 
@@ -28,9 +36,13 @@ window.onkeyup = function(e){
 	// pressed keys
 	currTime = +new Date();
 	if (timeStamps[e.which]) {
-		duration = currTime - timeStamps[e.which];
-		console.log('' + e.which + ': ' + duration);
 		delete timeStamps[e.which];
 	}
 };
+
+start = function(){
+	var intervalID = window.setInterval(eval, 50);
+}
+
+
 
